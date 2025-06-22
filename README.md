@@ -1,27 +1,159 @@
-# TaskManagerFrontend
+# Task Manager Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+## Overview
 
-## Development server
+This Angular 17 frontend application is designed as the client UI for the Task Manager backend API.  
+It provides a simple, clean interface to create, view, update, filter, and delete tasks with friendly status management.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Display task list with friendly status labels and color-coded chips  
+- Add new tasks via reactive forms in a modal dialog  
+- Edit existing tasks via modal dialog  
+- Change task status from dropdown menu on each task row  
+- Delete tasks with confirmation  
+- Filter tasks by status using dropdown filter  
+- Instant search filter by task title or status 
+- Responsive design with Angular Material components  
+- Error handling and user feedback via snackbars  
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Technologies
 
-## Running unit tests
+- Angular 17 (latest stable)  
+- Angular Material for UI components  
+- RxJS for reactive programming  
+- TypeScript and SCSS  
+- HttpClient for REST API communication  
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## Project Structure
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```
+src/
+├── app/
+│ ├── components/
+│ ├── modules/
+│ │ ├── core/
+│ │ ├── shared/
+│ │ └── tasks/
+│ │ 	   ├── components/
+│ │ 	   ├── helpers/
+│ │ 	   ├── models/
+│ │ 	   ├── services/
+│ │ 	   ├── tasks-routing.module.ts
+│ │ 	   └── tasks.module.ts
+│ │ 
+│ ├── app-routing.module.ts
+│ ├── app.module.ts
+├── assets/
+└── environments/
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (>=18.x recommended)  
+- Angular CLI (>=17.x) installed globally:  
+  ```bash
+  npm install -g @angular/cli
+  ```
+
+---
+
+### Installation
+
+1. Clone the repository  
+   ```bash
+   git clone https://github.com/task-manager-suite/task-manager-frontend.git
+   cd task-manager-frontend
+   ```
+
+2. Install dependencies  
+   ```bash
+   npm install
+   ```
+
+3. Configure Backend API URL in `src/environments/environment.ts` and `src/environments/environment.prod.ts`:  
+   ```ts
+   export const environment = {
+     production: false,
+     apiBaseUrl: 'http://localhost:8080/api'
+   };
+   ```
+
+---
+
+### Running the Application
+
+Start the dev server with live reload:
+
+```bash
+ng serve
+```
+
+Open your browser at [http://localhost:4200](http://localhost:4200).
+
+---
+
+### Build for Production
+
+```bash
+ng build --prod
+```
+
+---
+
+## Usage
+
+- Use the **Add Task** button to create a new task  
+- Click the **Edit** (green) icon to modify task details  
+- Click the **Delete** (red) icon to remove a task  
+- Click the status dropdown arrow to quickly change status  
+- Use the **Filter by Status** dropdown to filter tasks by their status  
+- Use the search input box to filter tasks by title or status instantly  
+
+---
+
+## Testing
+
+Run unit tests with Karma:
+
+```bash
+ng test
+```
+
+---
+
+## Coding Best Practices
+
+- Modular architecture with feature modules  
+- Reusable and isolated components  
+- Reactive forms for validation  
+- Strong typing with TypeScript interfaces/models  
+- Angular Material for consistent UI and accessibility  
+- Service layer for HTTP calls and business logic  
+- Use environment variables for configuration  
+- Error handling with user feedback (snackbars)  
+
+---
+
+## 📌 Author
+
+**Montassar Dhahri**  
+- GitHub: [@montadhr](https://github.com/montadhr)  
+
+---
+
+## 📄 License
+
+This project is delivered as part of a technical challenge. All rights reserved.
