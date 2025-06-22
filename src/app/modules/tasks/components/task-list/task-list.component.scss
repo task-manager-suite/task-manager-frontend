@@ -1,0 +1,24 @@
+.task-list-header {
+  margin-bottom: 1rem;
+}
+
+.status-todo {
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.status-in-progress {
+  color: #fbc02d;
+  font-weight: 600;
+}
+
+.status-done {
+  color: #388e3c;
+  font-weight: 600;
+}
+
+.list-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
