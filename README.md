@@ -11,7 +11,7 @@ It provides a simple, clean interface to create, view, update, filter, and delet
 
 You can download or watch the demo video:
 
-👉 [Watch Demo Video](src/assets/demo.mp4)
+👉 [Watch Demo Video](src/assets/demo.webm)
 
 ---
 
