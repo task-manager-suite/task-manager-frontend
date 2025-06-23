@@ -7,6 +7,14 @@ It provides a simple, clean interface to create, view, update, filter, and delet
 
 ---
 
+## 🎥 Demo
+
+You can download or watch the demo video:
+
+👉 [Watch Demo Video](./assets/demo.mp4)
+
+---
+
 ## Features
 
 - Display task list with friendly status labels and color-coded chips  
