@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,15 +9,21 @@ import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.compo
 import { ThemePalette } from '@angular/material/core';
 import { TaskStatusHelper } from '../../helpers/task-status.helper';
 import { TaskStatus } from '../../models/task-status.enum';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['title', 'description', 'status', 'actions'];
   dataSource = new MatTableDataSource<Task>();
+
+  pageEvent: PageEvent | undefined;
+  pageSize: number = 10;
+  currentPage: number = 1;
+  totalSize: number = 0;
 
   statusOptions = Object.values(TaskStatus);
 
@@ -33,10 +39,19 @@ export class TaskListComponent implements OnInit {
     this.loadTasks();
   }
 
-  loadTasks() {
-    this.taskService.getAll().subscribe({
-      next: (tasks) => {
-        this.dataSource.data = tasks;
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
+  loadTasks(event?:PageEvent) {
+    if(event) {
+      this.currentPage = (event?.pageIndex ?? 0) + 1;
+      this.pageSize = event?.pageSize ?? 10;
+    }
+    this.taskService.getAll(this.currentPage, this.pageSize).subscribe({
+      next: (pagedResponse) => {
+        this.dataSource.data = pagedResponse.items;
+        this.totalSize = pagedResponse.count;
         this.dataSource.sort = this.sort;
       },
       error: (err) => this.snackBar.open('Failed to load tasks', 'Close', { duration: 3000 }),

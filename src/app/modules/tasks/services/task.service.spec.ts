@@ -36,15 +36,26 @@ describe('TaskService', () => {
 
     it('should fetch all tasks', () => {
         const dummyTasks: Task[] = [dummyTask];
+        const response = {
+            items: dummyTasks,
+            count: dummyTasks.length
+        };
+        const pageIndex = 1;
+        const pageSize = 10;
 
-        service.getAll().subscribe(tasks => {
-            expect(tasks.length).toBe(1);
-            expect(tasks).toEqual(dummyTasks);
+        service.getAll(pageIndex, pageSize).subscribe(tasks => {
+            expect(response.count).toBe(1);
+            expect(tasks).toEqual(response);
         });
 
-        const req = httpMock.expectOne(`${environment.apiUrl}/tasks`);
+        const req = httpMock.expectOne((request) =>
+            request.url === `${environment.apiUrl}/tasks` &&
+            request.params.get('page') === '1' &&
+            request.params.get('offset') === '10'
+        );
+
         expect(req.request.method).toBe('GET');
-        req.flush(dummyTasks);
+        req.flush(response);
     });
 
     it('should create a task', () => {

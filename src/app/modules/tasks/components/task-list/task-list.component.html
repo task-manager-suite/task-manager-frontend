@@ -56,4 +56,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+  <mat-paginator class="margin-top" [length]="totalSize" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]=pageSize
+    showFirstLastButtons (page)="loadTasks($event)" aria-label="Select page">
+  </mat-paginator>
 </div>

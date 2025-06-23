@@ -5,16 +5,23 @@ import { Task } from '../models/task.model';
 import { environment } from '../../../../environments/environment';
 import { TaskStatus } from '../models/task-status.enum';
 import { TaskRequest } from '../models/task-request.model';
+import { PageDto } from '../../core/models/page.model';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
   private readonly API_URL = `${environment.apiUrl}/tasks`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAll(status?: TaskStatus): Observable<Task[]> {
-    const params = status ? new HttpParams().set('status', status) : undefined;
-    return this.http.get<Task[]>(this.API_URL, { params });
+  getAll(pageIndex: number, pageSize: number, status?: TaskStatus): Observable<PageDto<Task>> {
+    let params = new HttpParams()
+      .set('page', pageIndex.toString())
+      .set('offset', pageSize.toString());
+
+    if (status) {
+      params = params.set('status', status);
+    }
+    return this.http.get<PageDto<Task>>(this.API_URL, { params });
   }
 
   getById(id: number): Observable<Task> {

@@ -9,6 +9,7 @@ import { TaskService } from '../../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { SharedModule } from '../../../shared/shared.module';
+import { PageDto } from '../../../core/models/page.model';
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
@@ -22,9 +23,14 @@ describe('TaskListComponent', () => {
     { id: 2, title: 'Test Task 2', description: 'Description 2', status: TaskStatus.IN_PROGRESS }
   ];
 
+  const mockResponse: PageDto<Task> = {
+    items: mockTasks,
+    count: mockTasks.length
+  };
+
   beforeEach(async () => {
     taskServiceMock = {
-      getAll: jasmine.createSpy('getAll').and.returnValue(of(mockTasks)),
+      getAll: jasmine.createSpy('getAll').and.returnValue(of(mockResponse)),
       create: jasmine.createSpy('create').and.returnValue(of({})),
       update: jasmine.createSpy('update').and.returnValue(of({})),
       delete: jasmine.createSpy('delete').and.returnValue(of({})),
@@ -62,10 +68,10 @@ describe('TaskListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load tasks on init', () => {
-    expect(taskServiceMock.getAll).toHaveBeenCalled();
+  it('should load tasks on init', fakeAsync(() => {
     expect(component.dataSource.data.length).toBe(2);
-  });
+    expect(component.totalSize).toBe(2);
+  }));
 
   it('should open add dialog and create task', fakeAsync(() => {
     component.openAddDialog();
